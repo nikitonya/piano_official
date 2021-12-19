@@ -1,7 +1,7 @@
-import tkinter as tk
-import window_piano
+
+from window_piano import WindowPiano
 
 if __name__ == '__main__':
-    win = WindowPiano()
+    app = WindowPiano()
 
 
