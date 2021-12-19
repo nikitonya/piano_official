@@ -17,6 +17,7 @@ def create_win():
     win.resizable(False, False)  # запрет расширения окна
     win.attributes('-fullscreen',
                    False)
+
     frame_top = tk.Frame(win)
     frame_top.grid()
 
@@ -31,19 +32,72 @@ def create_win():
     label_piano.grid()
 
     frame_notes = tk.Frame(win)
-    frame_notes.grid()
+    frame_notes.grid(stick='w')
 
     frame_notes2 = tk.Frame(win)
     frame_notes2.grid()
 
-    btn1 = AudioButton(frame_notes, 'Do', "Music_Notes/Piano/D_s1.wav", 6, 5, 0, 0)
-    btn1.grid()
+    # frame_notes
+    btnspace = tk.Button(frame_notes, state=tk.DISABLED, height=13, width=27, bg='white', fg='white', relief=tk.FLAT)
+    btnspace.grid(row=0, column=0)
 
-    btn2 = AudioButton(frame_notes, 'So', "Music_Notes/Piano/C.wav", 6, 5, 0, 1)
-    btn2.grid()
+    btn1 = AudioButton(frame_notes, 'Do Dies', "Music_Notes/Piano/C_s.wav", 6, 5, 0, 1, 'black', 'white')
 
-    btn3 = AudioButton(frame_notes2, 'Ko', "Music_Notes/Piano/D.wav", 6, 5, 0, 1)
-    btn3.grid()
+    btn2 = AudioButton(frame_notes, 'Re Dies', "Music_Notes/Piano/D_s.wav", 6, 5, 0, 2, 'black', 'white')
+
+    btnspace1 = tk.Button(frame_notes, state=tk.DISABLED, height=13, width=11, bg='white', fg='white', relief=tk.FLAT)
+    btnspace1.grid(row=0, column=3)
+
+    btn3 = AudioButton(frame_notes, 'Fa', "Music_Notes/Piano/F_s.wav", 6, 5, 0, 4, 'black', 'white')
+
+    btn4 = AudioButton(frame_notes, 'Sol', "Music_Notes/Piano/G_s.wav", 6, 5, 0, 5, 'black', 'white')
+
+    btn5 = AudioButton(frame_notes, 'Lya', "Music_Notes/Piano/Bb.wav", 6, 5, 0, 6, 'black', 'white')
+
+    btnspace2 = tk.Button(frame_notes, state=tk.DISABLED, height=13, width=11, bg='white', fg='white', relief=tk.FLAT)
+    btnspace2.grid(row=0, column=7)
+
+    btn6 = AudioButton(frame_notes, 'Do', "Music_Notes/Piano/C_s1.wav", 6, 5, 0, 8, 'black', 'white')
+
+    btn7 = AudioButton(frame_notes, 'Re', "Music_Notes/Piano/D_s1.wav", 6, 5, 0, 9, 'black', 'white')
+
+    # frame_notes2
+    Do = AudioButton(frame_notes2, 'Do', "Music_Notes/Piano/C.wav", 6, 5, 0, 1, 'white', 'black')
+
+    Re = AudioButton(frame_notes2, 'Re', "Music_Notes/Piano/D.wav", 6, 5, 0, 2, 'white', 'black')
+
+    Mi = AudioButton(frame_notes2, 'Mi', "Music_Notes/Piano/D.wav", 6, 5, 0, 3, 'white', 'black')
+
+    Fa = AudioButton(frame_notes2, 'Fa', "Music_Notes/Piano/D.wav", 6, 5, 0, 4, 'white', 'black')
+
+    Sol = AudioButton(frame_notes2, 'Sol', "Music_Notes/Piano/D.wav", 6, 5, 0, 5, 'white', 'black')
+
+    Lya = AudioButton(frame_notes2, 'Lya', "Music_Notes/Piano/D.wav", 6, 5, 0, 6, 'white', 'black')
+
+    Si = AudioButton(frame_notes2, 'Si', "Music_Notes/Piano/D.wav", 6, 5, 0, 7, 'white', 'black')
+
+    Do1 = AudioButton(frame_notes2, 'Do', "Music_Notes/Piano/D.wav", 6, 5, 0, 8, 'white', 'black')
+
+    Re1 = AudioButton(frame_notes2, 'Re', "Music_Notes/Piano/D.wav", 6, 5, 0, 9, 'white', 'black')
+
+    Mi1 = AudioButton(frame_notes2, 'Mi', "Music_Notes/Piano/D.wav", 6, 5, 0, 10, 'white', 'black')
+
+    Fa1 = AudioButton(frame_notes2, 'Fa', "Music_Notes/Piano/D.wav", 6, 5, 0, 11, 'white', 'black')
+
+    sound_list = ['Piano', 'Steel_Drum']
+
+    def change():
+        Fa1.set_path_sound(f"Music_Notes/{sound_list[var.get()]}/D.wav")
+
+    var = tk.IntVar()
+    var.set(0)
+    Piano = tk.Radiobutton(frame_top, text='Piano', variable=var, value=0)
+    Steel_Drum = tk.Radiobutton(frame_top, text='Steel_Drum', variable=var, value=1)
+    button_change = tk.Button(text='Изменить', command=change)
+
+    Piano.grid(stick='w', row=0, column=0)
+    Steel_Drum.grid(stick='w', row=1, column=0)
+    button_change.grid(stick='w', row=2, column=0)
 
     win.mainloop()
 
