@@ -21,10 +21,11 @@ def create_win():
     frame_top.grid()
 
     label_piano = tk.Label(frame_top, text='Piano!',
-                           bg='red',
+                           bg='white',
                            fg='black',
                            font=('Times new Roman', 40, 'bold'),
-                           width = 40,
+                           width=40,
+                           height=5,
                            justify=tk.CENTER
                            )
     label_piano.grid()
@@ -32,14 +33,20 @@ def create_win():
     frame_notes = tk.Frame(win)
     frame_notes.grid()
 
-    btn1 = AudioButton(frame_notes, 'Do',
-                       6,5
+    frame_notes2 = tk.Frame(win)
+    frame_notes2.grid()
 
-                       ).grid(0,0)
+    btn1 = AudioButton(frame_notes, 'Do', "Music_Notes/Piano/D_s1.wav", 6, 5, 0, 0)
     btn1.grid()
 
+    btn2 = AudioButton(frame_notes, 'So', "Music_Notes/Piano/C.wav", 6, 5, 0, 1)
+    btn2.grid()
+
+    btn3 = AudioButton(frame_notes2, 'Ko', "Music_Notes/Piano/D.wav", 6, 5, 0, 1)
+    btn3.grid()
 
     win.mainloop()
+
 
 if __name__ == '__main__':
     create_win()
