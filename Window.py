@@ -1,7 +1,47 @@
 import pygame
 import tkinter as tk
 from AudioButton import AudioButton
+import wave
+import pyaudio
+from threading import Thread
 
+def recording():
+    CHUNK = 1024
+    FORMAT = pyaudio.paInt16
+    CHANNELS = 2
+    RATE = 44100
+    RECORD_SECONDS = 15
+    WAVE_OUTPUT_FILENAME = "output.wav"
+
+    p = pyaudio.PyAudio()
+
+    stream = p.open(format=FORMAT,
+                    channels=CHANNELS,
+                    rate=RATE,
+                    input=True,
+                    input_device_index=1,
+                    frames_per_buffer=CHUNK)
+
+    print("* recording")
+
+    frames = []
+
+    for i in range(0, int(RATE / CHUNK * RECORD_SECONDS)):
+        data = stream.read(CHUNK)
+        frames.append(data)
+
+    print("* done recording")
+
+    stream.stop_stream()
+    stream.close()
+    p.terminate()
+
+    wf = wave.open(WAVE_OUTPUT_FILENAME, 'wb')
+    wf.setnchannels(CHANNELS)
+    wf.setsampwidth(p.get_sample_size(FORMAT))
+    wf.setframerate(RATE)
+    wf.writeframes(b''.join(frames))
+    wf.close()
 
 class Window():
     def __init__(self):
@@ -36,8 +76,8 @@ class Window():
         self.frame_notes = tk.Frame(self.win)
         self.frame_notes.grid(stick='w')
 
-        frame_notes2 = tk.Frame(self.win)
-        frame_notes2.grid()
+        self.frame_notes2 = tk.Frame(self.win)
+        self.frame_notes2.grid()
 
         # frame_notes
         self.btnspace = tk.Button(self.frame_notes, state=tk.DISABLED, height=13, width=27, bg='white', fg='white',
@@ -58,30 +98,40 @@ class Window():
         self.btn7 = AudioButton(self.frame_notes, 'Re', "Music_Notes/Piano/D_s1.wav", 6, 5, 0, 9, 'black', 'white')
 
         # frame_notes2
-        self.Do = AudioButton(frame_notes2, 'Do', "Music_Notes/Piano/C.wav", 6, 5, 0, 1, 'white', 'black')
-        self.Re = AudioButton(frame_notes2, 'Re', "Music_Notes/Piano/D.wav", 6, 5, 0, 2, 'white', 'black')
-        self.Mi = AudioButton(frame_notes2, 'Mi', "Music_Notes/Piano/E.wav", 6, 5, 0, 3, 'white', 'black')
-        self.Fa = AudioButton(frame_notes2, 'Fa', "Music_Notes/Piano/F.wav", 6, 5, 0, 4, 'white', 'black')
-        self.Sol = AudioButton(frame_notes2, 'Sol', "Music_Notes/Piano/G.wav", 6, 5, 0, 5, 'white', 'black')
-        self.Lya = AudioButton(frame_notes2, 'Lya', "Music_Notes/Piano/A.wav", 6, 5, 0, 6, 'white', 'black')
-        self.Si = AudioButton(frame_notes2, 'Si', "Music_Notes/Piano/B.wav", 6, 5, 0, 7, 'white', 'black')
-        self.Do1 = AudioButton(frame_notes2, 'Do', "Music_Notes/Piano/C1.wav", 6, 5, 0, 8, 'white', 'black')
-        self.Re1 = AudioButton(frame_notes2, 'Re', "Music_Notes/Piano/D1.wav", 6, 5, 0, 9, 'white', 'black')
-        self.Mi1 = AudioButton(frame_notes2, 'Mi', "Music_Notes/Piano/E1.wav", 6, 5, 0, 10, 'white', 'black')
-        self.Fa1 = AudioButton(frame_notes2, 'Fa', "Music_Notes/Piano/F1.wav", 6, 5, 0, 11, 'white', 'black')
-        self.Fa2 = AudioButton(frame_notes2, 'Fa2', "Music_Notes/Piano/F2.wav", 6, 5, 0, 12, 'white', 'black')
+        self.Do = AudioButton(self.frame_notes2, 'Do', "Music_Notes/Piano/C.wav", 6, 5, 0, 1, 'white', 'black')
+        self.Re = AudioButton(self.frame_notes2, 'Re', "Music_Notes/Piano/D.wav", 6, 5, 0, 2, 'white', 'black')
+        self.Mi = AudioButton(self.frame_notes2, 'Mi', "Music_Notes/Piano/E.wav", 6, 5, 0, 3, 'white', 'black')
+        self.Fa = AudioButton(self.frame_notes2, 'Fa', "Music_Notes/Piano/F.wav", 6, 5, 0, 4, 'white', 'black')
+        self.Sol = AudioButton(self.frame_notes2, 'Sol', "Music_Notes/Piano/G.wav", 6, 5, 0, 5, 'white', 'black')
+        self.Lya = AudioButton(self.frame_notes2, 'Lya', "Music_Notes/Piano/A.wav", 6, 5, 0, 6, 'white', 'black')
+        self.Si = AudioButton(self.frame_notes2, 'Si', "Music_Notes/Piano/B.wav", 6, 5, 0, 7, 'white', 'black')
+        self.Do1 = AudioButton(self.frame_notes2, 'Do', "Music_Notes/Piano/C1.wav", 6, 5, 0, 8, 'white', 'black')
+        self.Re1 = AudioButton(self.frame_notes2, 'Re', "Music_Notes/Piano/D1.wav", 6, 5, 0, 9, 'white', 'black')
+        self.Mi1 = AudioButton(self.frame_notes2, 'Mi', "Music_Notes/Piano/E1.wav", 6, 5, 0, 10, 'white', 'black')
+        self.Fa1 = AudioButton(self.frame_notes2, 'Fa', "Music_Notes/Piano/F1.wav", 6, 5, 0, 11, 'white', 'black')
+        #self.Fa2 = AudioButton(self.frame_notes2, 'Fa2', "Music_Notes/Piano/F2.wav", 6, 5, 0, 12, 'white', 'black')
 
         self.sound_list = ['Piano', 'Steel_Drum']
 
+        # self.canvas = tk.Canvas(self.frame_actions, width=100, height=100)
+        # self.canvas.grid(row=0, column=1)
+        #
+        # self.icon = tk.PhotoImage(file='IconRadio.png')
+        # self.canvas.create_image(0, 0, anchor=tk.NW, image=self.icon)
+
         self.var = tk.IntVar()
         self.var.set(0)
-        self.piano = tk.Radiobutton(self.frame_actions, text='Piano', variable=self.var, value=0)
-        self.steel_drum = tk.Radiobutton(self.frame_actions, text='Steel_Drum', variable=self.var, value=1)
-        self.button_change = tk.Button(self.frame_actions, text='Изменить', command=self.change)
+        self.piano = tk.Radiobutton(self.frame_actions, text='Piano', variable=self.var, value=0, indicatoron=0,
+                                    command=self.change, height=5, width=10)
+        # self.piano.config(image=tk.PhotoImage(file='Icon.png'))
+        self.steel_drum = tk.Radiobutton(self.frame_actions, text='Steel_Drum', variable=self.var, value=1,
+                                         indicatoron=0, command=self.change, height=5, width=10,
+                                         fg='blue')
+        self.button_record = tk.Button(self.frame_actions, text='Включить запись', command=Thread(target=recording,daemon=True).start())
 
         self.piano.grid(stick='w', row=0, column=0)
-        self.steel_drum.grid(stick='w', row=1, column=0)
-        self.button_change.grid(stick='w', row=2, column=0)
+        self.steel_drum.grid(stick='w', row=0, column=1)
+        self.button_record.grid(stick='w', row=0, column=2)
 
         self.win.mainloop()
 
