@@ -4,7 +4,7 @@ import pygame
 
 
 class AudioButton(tkinter.Button):
-    def __init__(self, frame: tkinter.Frame, name_button: str, path_sound: str, height: float, width: float, x: int,
+    def __init__(self, frame: tkinter.Tk, name_button: str, path_sound: str, height: float, width: float, x: int,
                  y: int,
                  bg: str, fg: str, keyboard: str, anchor: str):
         super().__init__()

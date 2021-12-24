@@ -24,8 +24,8 @@ class Window():
         self.win.attributes('-fullscreen', False)
         self.vol = 1
 
-        self.help = tk.Button(self.win,bg='white',text='Help',height=2,width=10)
-        self.help.place(x=1150,y=80)
+        self.help = tk.Button(self.win, bg='white', text='Help', height=2, width=10, command=self.show_readme,fg='SpringGreen4')
+        self.help.place(x=1150, y=80)
 
         self.frame_top = tk.Frame(self.win)
         self.frame_top.grid()
@@ -51,56 +51,56 @@ class Window():
         self.label_piano.grid()
 
         # piano_notes
-        self.C = AudioButton(self.win, 'C', "Music_Notes/Piano_classic/C.wav", 16, 4, 117, 240, 'white', 'black',
-                             '[', 's')
-        self.D = AudioButton(self.win, 'D', "Music_Notes/Piano_classic/D.wav", 16, 4, 190, 240, 'white', 'black',
-                             ']', 's')
-        self.E = AudioButton(self.win, 'E', "Music_Notes/Piano_classic/E.wav", 16, 4, 263, 240, 'white', 'black',
+        self.C = AudioButton(self.win, 't', "Music_Notes/Piano_classic/t.wav", 16, 4, 117, 240, 'white', 'black',
+                             't', 's')
+        self.D = AudioButton(self.win, 'y', "Music_Notes/Piano_classic/y.wav", 16, 4, 190, 240, 'white', 'black',
+                             'y', 's')
+        self.E = AudioButton(self.win, 'u', "Music_Notes/Piano_classic/u.wav", 16, 4, 263, 240, 'white', 'black',
+                             'u', 's')
+        self.F = AudioButton(self.win, 'i', "Music_Notes/Piano_classic/i.wav", 16, 4, 336, 240, 'white', 'black',
+                             'i', 's')
+        self.G = AudioButton(self.win, 'o', "Music_Notes/Piano_classic/o.wav", 16, 4, 409, 240, 'white', 'black',
+                             'o', 's')
+        self.A = AudioButton(self.win, 'p', "Music_Notes/Piano_classic/p.wav", 16, 4, 482, 240, 'white', 'black',
+                             'p', 's')
+        self.B = AudioButton(self.win, 'a', "Music_Notes/Piano_classic/a.wav", 16, 4, 555, 240, 'white', 'black',
                              'a', 's')
-        self.F = AudioButton(self.win, 'F', "Music_Notes/Piano_classic/F.wav", 16, 4, 336, 240, 'white', 'black',
-                             's', 's')
-        self.G = AudioButton(self.win, 'G', "Music_Notes/Piano_classic/G.wav", 16, 4, 409, 240, 'white', 'black',
-                             'd', 's')
-        self.A = AudioButton(self.win, 'A', "Music_Notes/Piano_classic/A.wav", 16, 4, 482, 240, 'white', 'black',
-                             'f', 's')
-        self.B = AudioButton(self.win, 'B', "Music_Notes/Piano_classic/B.wav", 16, 4, 555, 240, 'white', 'black',
-                             'g', 's')
-        self.C1 = AudioButton(self.win, 'C1', "Music_Notes/Piano_classic/C1.wav", 16, 4, 628, 240, 'white', 'black',
-                              'h', 's')
-        self.D1 = AudioButton(self.win, 'D1', "Music_Notes/Piano_classic/D1.wav", 16, 4, 701, 240, 'white', 'black',
-                              'j', 's')
-        self.E1 = AudioButton(self.win, 'E1', "Music_Notes/Piano_classic/E1.wav", 16, 4, 774, 240, 'white',
+        self.C1 = AudioButton(self.win, 's', "Music_Notes/Piano_classic/s.wav", 16, 4, 628, 240, 'white', 'black',
+                              's', 's')
+        self.D1 = AudioButton(self.win, 'd', "Music_Notes/Piano_classic/d.wav", 16, 4, 701, 240, 'white', 'black',
+                              'd', 's')
+        self.E1 = AudioButton(self.win, 'f', "Music_Notes/Piano_classic/f.wav", 16, 4, 774, 240, 'white',
+                              'black', 'f', 's')
+        self.F1 = AudioButton(self.win, 'g', "Music_Notes/Piano_classic/g.wav", 16, 4, 847, 240, 'white',
+                              'black', 'g', 's')
+        self.G1 = AudioButton(self.win, 'h', "Music_Notes/Piano_classic/h.wav", 16, 4, 920, 240, 'white',
+                              'black', 'h', 's')
+        self.A1 = AudioButton(self.win, 'j', "Music_Notes/Piano_classic/j.wav", 16, 4, 993, 240, 'white',
+                              'black', 'j', 's')
+        self.B1 = AudioButton(self.win, 'k', "Music_Notes/Piano_classic/k.wav", 16, 4, 1066, 240, 'white',
                               'black', 'k', 's')
-        self.F1 = AudioButton(self.win, 'F1', "Music_Notes/Piano_classic/F1.wav", 16, 4, 847, 240, 'white',
-                              'black', 'l', 's')
-        self.G1 = AudioButton(self.win, 'G1', "Music_Notes/Piano_classic/G1.wav", 16, 4, 920, 240, 'white',
-                              'black', ';', 's')
-        self.A1 = AudioButton(self.win, 'A1', "Music_Notes/Piano_classic/A1.wav", 16, 4, 993, 240, 'white',
-                              'black', 'b', 's')
-        self.B1 = AudioButton(self.win, 'B1', "Music_Notes/Piano_classic/B1.wav", 16, 4, 1066, 240, 'white',
-                              'black', 'Return', 's')
         # Dies-notes
-        self.C_d = AudioButton(self.win, 'C#', "Music_Notes/Piano_classic/C#.wav", 10, 3, 160, 240, 'black', 'white',
+        self.C_d = AudioButton(self.win, 'T_d', "Music_Notes/Piano_classic/T_d.wav", 10, 3, 160, 240, 'black', 'white',
                                'T', 's')
-        self.D_d = AudioButton(self.win, 'D#', "Music_Notes/Piano_classic/D#.wav", 10, 3, 233, 240, 'black', 'white',
-                               'w', 's')
-        self.F_d = AudioButton(self.win, 'F#', "Music_Notes/Piano_classic/F#.wav", 10, 3, 379, 240, 'black', 'white',
-                               'e', 's')
-        self.G_d = AudioButton(self.win, 'G#', "Music_Notes/Piano_classic/G#.wav", 10, 3, 452, 240, 'black', 'white',
-                               'r', 's')
-        self.A_d = AudioButton(self.win, 'A#', "Music_Notes/Piano_classic/A#.wav", 10, 3, 525, 240, 'black', 'white',
-                               't', 's')
+        self.D_d = AudioButton(self.win, 'Y_d', "Music_Notes/Piano_classic/Y_d.wav", 10, 3, 233, 240, 'black', 'white',
+                               'Y', 's')
+        self.F_d = AudioButton(self.win, 'I_d', "Music_Notes/Piano_classic/I_d.wav", 10, 3, 379, 240, 'black', 'white',
+                               'I', 's')
+        self.G_d = AudioButton(self.win, 'O_d', "Music_Notes/Piano_classic/O_d.wav", 10, 3, 452, 240, 'black', 'white',
+                               'O', 's')
+        self.A_d = AudioButton(self.win, 'P_d', "Music_Notes/Piano_classic/P_d.wav", 10, 3, 525, 240, 'black', 'white',
+                               'P', 's')
 
-        self.C1_d = AudioButton(self.win, 'C1#', "Music_Notes/Piano_classic/C1#.wav", 10, 3, 671, 240, 'black',
-                                'white', 'y', 's')
-        self.D1_d = AudioButton(self.win, 'D1#', "Music_Notes/Piano_classic/D1#.wav", 10, 3, 744, 240, 'black',
-                                'white', 'u', 's')
-        self.F1_d = AudioButton(self.win, 'F1#', "Music_Notes/Piano_classic/F1#.wav", 10, 3, 890, 240, 'black',
-                                'white', 'i', 's')
-        self.G1_d = AudioButton(self.win, 'G1#', "Music_Notes/Piano_classic/G1#.wav", 10, 3, 963, 240, 'black',
-                                'white', 'o', 's')
-        self.A1_d = AudioButton(self.win, 'A1#', "Music_Notes/Piano_classic/A1#.wav", 10, 3, 1036, 240, 'black',
-                                'white', 'p', 's')
+        self.C1_d = AudioButton(self.win, 'S_d', "Music_Notes/Piano_classic/S_d.wav", 10, 3, 671, 240, 'black',
+                                'white', 'S', 's')
+        self.D1_d = AudioButton(self.win, 'D_d', "Music_Notes/Piano_classic/D_d.wav", 10, 3, 744, 240, 'black',
+                                'white', 'D', 's')
+        self.F1_d = AudioButton(self.win, 'G_d', "Music_Notes/Piano_classic/G_d.wav", 10, 3, 890, 240, 'black',
+                                'white', 'G', 's')
+        self.G1_d = AudioButton(self.win, 'H_d', "Music_Notes/Piano_classic/H_d.wav", 10, 3, 963, 240, 'black',
+                                'white', 'H', 's')
+        self.A1_d = AudioButton(self.win, 'J_d', "Music_Notes/Piano_classic/J_d.wav", 10, 3, 1036, 240, 'black',
+                                'white', 'J', 's')
 
         self.btns = [self.C, self.D, self.E, self.F, self.G, self.A, self.B, self.C1, self.D1, self.E1, self.F1,
                      self.G1, self.A1, self.B1, self.C_d, self.D_d, self.F_d, self.G_d, self.A_d, self.C1_d, self.D1_d,
@@ -118,7 +118,7 @@ class Window():
         self.frame_button_record = tk.LabelFrame(self.frame_actions, text='Record', bg='MediumPurple1')
         self.frame_button_record.grid(row=0, column=1)
         # button_record
-        self.button_record = tk.Button(self.frame_button_record, text='Start', command=self.main, height=5, width=10)
+        self.button_record = tk.Button(self.frame_button_record, text='Start', command=self.main, height=5, width=10,fg='SpringGreen4')
         self.button_record.grid(row=0, column=0)
 
         # button_space2
@@ -129,24 +129,24 @@ class Window():
 
         # frame_radiobuttons
         self.frame_radio = tk.LabelFrame(self.frame_actions, text='Sound pack', bg='MediumPurple1')
-        self.frame_radio.grid(row=0, column=3,stick='s')
+        self.frame_radio.grid(row=0, column=3, stick='s')
         # RedioButtons
         self.var = tk.IntVar()
         self.var.set(0)
         self.piano = tk.Radiobutton(self.frame_radio, text='Piano', variable=self.var, value=0, indicatoron=0,
-                                    command=self.change, height=5, width=10, fg='MediumPurple1')
+                                    command=self.change, height=5, width=10, fg='SpringGreen4')
         self.piano.grid(row=0, column=1)
         self.Guitar = tk.Radiobutton(self.frame_radio, text='Guitar', variable=self.var, value=1,
                                      indicatoron=0, command=self.change, height=5, width=10,
-                                     fg='MediumPurple1')
+                                     fg='SpringGreen4')
         self.Guitar.grid(row=0, column=2)
         self.accordion = tk.Radiobutton(self.frame_radio, text='Accordion', variable=self.var, value=2,
                                         indicatoron=0, command=self.change, height=5, width=10,
-                                        fg='MediumPurple1')
+                                        fg='SpringGreen4')
         self.accordion.grid(row=0, column=3)
         self.violin = tk.Radiobutton(self.frame_radio, text='Violin', variable=self.var, value=3,
-                                        indicatoron=0, command=self.change, height=5, width=10,
-                                        fg='MediumPurple1')
+                                     indicatoron=0, command=self.change, height=5, width=10,
+                                     fg='SpringGreen4')
         self.violin.grid(row=0, column=4)
 
         # button_space
@@ -211,7 +211,7 @@ class Window():
         WAVE_OUTPUT_FILENAME = "output.wav"
 
         index = self.check_index_device()
-        index2 = self.check_index_device()
+        #index2 = self.check_index_device()
 
         p = pyaudio.PyAudio()
 
@@ -220,7 +220,7 @@ class Window():
                         rate=RATE,
                         input=True,
                         input_device_index=index,
-                        output_device_index=index2,
+                        #output_device_index=index2,
                         frames_per_buffer=CHUNK)
 
         print("* recording")
@@ -251,17 +251,28 @@ class Window():
         p = pyaudio.PyAudio()
         for i in range(p.get_device_count()):
             if p.get_device_info_by_index(i)['name'] == 'Стерео микшер (Realtek(R) Audio':
+                print(i, p.get_device_info_by_index(i)['name'])
                 return i
 
-    def check_index_device2(self):
-        p = pyaudio.PyAudio()
-        for i in range(p.get_device_count()):
-            if p.get_device_info_by_index(i)['name'] == 'Динамики (Realtek(R) Audio)':
-                return i
+    # def check_index_device2(self):
+    #     p = pyaudio.PyAudio()
+    #     for i in range(p.get_device_count()):
+    #         if p.get_device_info_by_index(i)['name'] == 'Динамики (Realtek(R) Audio)':
+    #             return i
 
     def show_info(self):
-        msg='Ваша запись успешно записана. Загляните в корневую папку.'
+        msg = 'Запись прошла успешно. Для прослушивания загляните в корневую папку и откройте файл "output.wav".'
         mb.showinfo('Внимание', msg)
 
     def show_readme(self):
-        msg='Добро пожаловать в Виртуальное пианино'
+        msg = 'Добро пожаловать в Виртуальное пианино!\n\n' \
+              'В данном пианино вам предоставляется возможность поиграть ' \
+              'в него как с мыши, так и с клавитуры. \n' \
+              'Для игры при помощи клавитуры перейдите на английскую раскладку и воспользуйтесь клавишами:\n\n' \
+              '\t T Y    I O P    S D  G H J \n' \
+              '\tt y u i o p a s d f g h j k \n\n' \
+              'Также вы можете записать свою проигранную мелодию. Для этого нажмите на клавишу "Start"' \
+              'и когда вам нужно прекратить запись, нажмите клавишу "Stop".\n\n' \
+              'И для разнообразия вы можете сменять наборы звуков над центральным пианино.\n\n' \
+              'Удачи в изучении музыки!'
+        mb.showinfo('Инструкция', msg)
