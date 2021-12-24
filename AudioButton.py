@@ -4,9 +4,9 @@ import pygame
 
 
 class AudioButton(tkinter.Button):
-    def __init__(self, frame: tkinter.Frame, name_button: str, path_sound: str, height: float, width: float, row: int,
-                 column: int,
-                 bg: str, fg: str, keyboard: str):
+    def __init__(self, frame: tkinter.Frame, name_button: str, path_sound: str, height: float, width: float, x: int,
+                 y: int,
+                 bg: str, fg: str, keyboard: str, anchor: str):
         super().__init__()
         self.frame = frame
         self.path_sound = path_sound
@@ -15,9 +15,8 @@ class AudioButton(tkinter.Button):
 
         self.btn = tkinter.Button(self.frame, text=name_button, height=height, width=width,
                                   font=('arial', 18, 'bold'), bd=4, bg=bg, fg=fg,
-                                  command=self.play_sound_click)
+                                  command=self.play_sound_click, anchor=anchor).place(x=x, y=y)
 
-        self.btn.grid(row=row, column=column, stick='w')
         self.frame.bind("<" + keyboard + ">", lambda event: self.play_sound(event))
         self.frame.focus_set()
 
@@ -25,8 +24,6 @@ class AudioButton(tkinter.Button):
         self.sound.set_volume(vol)
 
     def play_sound(self, event) -> None:
-        self.focus_force()
-        print("doing ")
         self.sound.play()
 
     def play_sound_click(self):
