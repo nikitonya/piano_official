@@ -11,6 +11,7 @@ import tkinter.messagebox as mb
 class Window():
 
     def __init__(self):
+        # init Window
         w = 1250
         h = 760
         self.win = tk.Tk()
@@ -18,28 +19,20 @@ class Window():
         icon = tk.PhotoImage(file='Icon.png')
         self.win.title('Piano')
         self.win.iconphoto(False, icon)
-        self.win.config(bg='MediumPurple1')  # цвет бэкграунда
-        self.win.geometry(f"{w}x{h}+155+40")  # значение в пикселях и запускать в 10 пикселях от левого верхнего края
-        self.win.resizable(False, False)  # запрет расширения окна
-        self.win.attributes('-fullscreen', False)
+        self.win.config(bg='MediumPurple1')
+        self.win.geometry(f"{w}x{h}+155+40")
+        self.win.resizable(False, False)
         self.vol = 1
 
-        self.help = tk.Button(self.win, bg='white', text='Help', height=2, width=10, command=self.show_readme,fg='SpringGreen4')
+        # Help button
+        self.help = tk.Button(self.win, bg='white', text='Help', height=2, width=10, command=self.show_readme,
+                              fg='SpringGreen4')
         self.help.place(x=1150, y=80)
 
+        # frame for label
         self.frame_top = tk.Frame(self.win)
         self.frame_top.grid()
-
-        self.frame_space0 = tk.Frame(self.win, bg='MediumPurple1', background='MediumPurple1')
-        self.frame_space0.grid()
-        self.btnspace0 = tk.Button(self.frame_space0, state=tk.DISABLED, height=1, width=22, bg='MediumPurple1',
-                                   fg='MediumPurple1',
-                                   relief=tk.FLAT)
-        self.btnspace0.grid(row=0, column=0)
-
-        self.frame_actions = tk.Frame(self.win, bg='MediumPurple1')
-        self.frame_actions.grid()
-
+        # Label Piano!
         self.label_piano = tk.Label(self.frame_top, text='Piano!',
                                     bg='MediumPurple1',
                                     fg='black',
@@ -49,6 +42,18 @@ class Window():
                                     justify=tk.CENTER
                                     )
         self.label_piano.grid()
+
+        # frame for space after Piano
+        self.frame_space0 = tk.Frame(self.win, bg='MediumPurple1', background='MediumPurple1')
+        self.frame_space0.grid()
+        self.btnspace0 = tk.Button(self.frame_space0, state=tk.DISABLED, height=1, width=22, bg='MediumPurple1',
+                                   fg='MediumPurple1',
+                                   relief=tk.FLAT)
+        self.btnspace0.grid(row=0, column=0)
+
+        # frame actions
+        self.frame_actions = tk.Frame(self.win, bg='MediumPurple1')
+        self.frame_actions.grid()
 
         # piano_notes
         self.C = AudioButton(self.win, 't', "Music_Notes/Piano_classic/t.wav", 16, 4, 117, 240, 'white', 'black',
@@ -101,12 +106,12 @@ class Window():
                                 'white', 'H', 's')
         self.A1_d = AudioButton(self.win, 'J_d', "Music_Notes/Piano_classic/J_d.wav", 10, 3, 1036, 240, 'black',
                                 'white', 'J', 's')
-
+        # list of obj Audiobutton
         self.btns = [self.C, self.D, self.E, self.F, self.G, self.A, self.B, self.C1, self.D1, self.E1, self.F1,
                      self.G1, self.A1, self.B1, self.C_d, self.D_d, self.F_d, self.G_d, self.A_d, self.C1_d, self.D1_d,
                      self.F1_d, self.G1_d, self.A1_d]
-
-        self.sound_list = ['Piano_classic', 'Guitar']
+        # A set of sounds
+        self.sound_list = ['Piano_classic', 'Guitar', 'Accordion', 'Violin']
 
         # button_space
         self.btnspace1 = tk.Button(self.frame_actions, state=tk.DISABLED, height=1, width=0, bg='MediumPurple1',
@@ -118,7 +123,8 @@ class Window():
         self.frame_button_record = tk.LabelFrame(self.frame_actions, text='Record', bg='MediumPurple1')
         self.frame_button_record.grid(row=0, column=1)
         # button_record
-        self.button_record = tk.Button(self.frame_button_record, text='Start', command=self.main, height=5, width=10,fg='SpringGreen4')
+        self.button_record = tk.Button(self.frame_button_record, text='Start', command=self.btn_record_action, height=5, width=10,
+                                       fg='SpringGreen4')
         self.button_record.grid(row=0, column=0)
 
         # button_space2
@@ -176,31 +182,20 @@ class Window():
 
         self.win.mainloop()
 
+    # fucntion for change of set sound
     def change(self):
         for btn in self.btns:
             btn.set_path_sound(self.sound_list[self.var.get()])
 
-    def main(self):
-        global thread_stop
-
+    def btn_record_action(self):
         if self.button_record['text'] == 'Start':
             self.button_record['text'] = 'Stop'
-            thread_stop = False  # Что-бы поток не остановился присваеваем False
             thread = threading.Thread(target=self.recording)
             thread.start()
         else:
             self.button_record['text'] = 'Start'
-            thread_stop = True  # Присваеваем значение True и завершаем поток
 
     thread_stop = False
-
-    def run(self):
-        counter = 1
-        while counter <= 5:
-            if thread_stop == True: return  # Останавливаем цикл
-            print(counter)
-            counter += 1
-            time.sleep(0.5)
 
     def recording(self):
         CHUNK = 1024
@@ -211,7 +206,7 @@ class Window():
         WAVE_OUTPUT_FILENAME = "output.wav"
 
         index = self.check_index_device()
-        #index2 = self.check_index_device()
+        index2 = 18  # self.check_index_device2()
 
         p = pyaudio.PyAudio()
 
@@ -220,7 +215,7 @@ class Window():
                         rate=RATE,
                         input=True,
                         input_device_index=index,
-                        #output_device_index=index2,
+                        output_device_index=index2,
                         frames_per_buffer=CHUNK)
 
         print("* recording")
@@ -254,11 +249,12 @@ class Window():
                 print(i, p.get_device_info_by_index(i)['name'])
                 return i
 
-    # def check_index_device2(self):
-    #     p = pyaudio.PyAudio()
-    #     for i in range(p.get_device_count()):
-    #         if p.get_device_info_by_index(i)['name'] == 'Динамики (Realtek(R) Audio)':
-    #             return i
+    def check_index_device2(self):
+        p = pyaudio.PyAudio()
+        for i in range(p.get_device_count()):
+            if p.get_device_info_by_index(i)['name'] == 'Динамики (Realtek(R) Audio)':
+                print(i, p.get_device_info_by_index(i)['name'])
+                return i
 
     def show_info(self):
         msg = 'Запись прошла успешно. Для прослушивания загляните в корневую папку и откройте файл "output.wav".'
