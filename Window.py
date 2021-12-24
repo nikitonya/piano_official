@@ -4,7 +4,6 @@ from AudioButton import AudioButton
 import wave
 import pyaudio
 import threading
-import time
 import tkinter.messagebox as mb
 
 
@@ -21,7 +20,7 @@ class Window():
         self.win.iconphoto(False, icon)
         self.win.config(bg='MediumPurple1')
         self.win.geometry(f"{w}x{h}+155+40")
-        self.win.resizable(False, False)
+        self.win.resizable(True, True)
         self.vol = 1
 
         # Help button
@@ -50,10 +49,6 @@ class Window():
                                    fg='MediumPurple1',
                                    relief=tk.FLAT)
         self.btnspace0.grid(row=0, column=0)
-
-        # frame actions
-        self.frame_actions = tk.Frame(self.win, bg='MediumPurple1')
-        self.frame_actions.grid()
 
         # piano_notes
         self.C = AudioButton(self.win, 't', "Music_Notes/Piano_classic/t.wav", 16, 4, 117, 240, 'white', 'black',
@@ -113,6 +108,10 @@ class Window():
         # A set of sounds
         self.sound_list = ['Piano_classic', 'Guitar', 'Accordion', 'Violin']
 
+        # frame actions
+        self.frame_actions = tk.Frame(self.win, bg='MediumPurple1')
+        self.frame_actions.grid()
+
         # button_space
         self.btnspace1 = tk.Button(self.frame_actions, state=tk.DISABLED, height=1, width=0, bg='MediumPurple1',
                                    fg='white',
@@ -123,7 +122,8 @@ class Window():
         self.frame_button_record = tk.LabelFrame(self.frame_actions, text='Record', bg='MediumPurple1')
         self.frame_button_record.grid(row=0, column=1)
         # button_record
-        self.button_record = tk.Button(self.frame_button_record, text='Start', command=self.btn_record_action, height=5, width=10,
+        self.button_record = tk.Button(self.frame_button_record, text='Start', command=self.btn_record_action, height=5,
+                                       width=10,
                                        fg='SpringGreen4')
         self.button_record.grid(row=0, column=0)
 
@@ -136,6 +136,7 @@ class Window():
         # frame_radiobuttons
         self.frame_radio = tk.LabelFrame(self.frame_actions, text='Sound pack', bg='MediumPurple1')
         self.frame_radio.grid(row=0, column=3, stick='s')
+
         # RedioButtons
         self.var = tk.IntVar()
         self.var.set(0)
@@ -187,6 +188,7 @@ class Window():
         for btn in self.btns:
             btn.set_path_sound(self.sound_list[self.var.get()])
 
+    # function for record_button
     def btn_record_action(self):
         if self.button_record['text'] == 'Start':
             self.button_record['text'] = 'Stop'
@@ -195,8 +197,7 @@ class Window():
         else:
             self.button_record['text'] = 'Start'
 
-    thread_stop = False
-
+    # func for recording melody
     def recording(self):
         CHUNK = 1024
         FORMAT = pyaudio.paInt16
@@ -218,7 +219,7 @@ class Window():
                         output_device_index=index2,
                         frames_per_buffer=CHUNK)
 
-        print("* recording")
+        #print("* recording")
 
         frames = []
 
@@ -228,7 +229,7 @@ class Window():
             if self.button_record['text'] == 'Start':
                 break
 
-        print("* done recording")
+        #print("* done recording")
         self.show_info()
 
         stream.stop_stream()
