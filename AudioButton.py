@@ -1,6 +1,6 @@
 import tkinter
 import pygame
-
+import threading
 
 class AudioButton(tkinter.Button):
     def __init__(self, frame: tkinter.Tk, name_button: str, path_sound: str, height: float, width: float, x: int,
@@ -21,6 +21,7 @@ class AudioButton(tkinter.Button):
 
     def change_volume(self, vol: float):
         self.sound.set_volume(vol)
+
 
     def play_sound(self, event) -> None:
         self.sound.play()

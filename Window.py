@@ -219,7 +219,7 @@ class Window():
                         output_device_index=index2,
                         frames_per_buffer=CHUNK)
 
-        #print("* recording")
+        # print("* recording")
 
         frames = []
 
@@ -229,7 +229,7 @@ class Window():
             if self.button_record['text'] == 'Start':
                 break
 
-        #print("* done recording")
+        # print("* done recording")
         self.show_info()
 
         stream.stop_stream()
